@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { StyleSheet, View, Text } from "react-native";
 
-const Introduction = ({ navigation }) => {
+const IntroScreen = ({ navigation }) => {
     useEffect(() => {
         setTimeout(() => {
             navigation.navigate("Home");
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 });
-export default Introduction;
+export default IntroScreen;
