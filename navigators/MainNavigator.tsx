@@ -1,14 +1,19 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TabNavigator from "./TabNavigator";
-import LoginScreen from "../app/Auth/LoginScreen";
+import { VertifyScreen } from "@/screens";
+
+const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
-    const Stack = createNativeStackNavigator();
     return (
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+            initialRouteName='Main'
+        >
+            {/* Tab navigator */}
             <Stack.Screen name='Main' component={TabNavigator} />
-            <Stack.Screen name='LoginScreen' component={LoginScreen} />
+            <Stack.Screen name='Vertify' component={VertifyScreen} />
         </Stack.Navigator>
     );
 };

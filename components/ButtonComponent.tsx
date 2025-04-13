@@ -1,91 +1,41 @@
 import {
-    View,
-    Text,
-    StyleProp,
-    ViewStyle,
-    TextStyle,
     TouchableOpacity,
+    StyleProp,
+    Text,
+    TextStyle,
+    ViewStyle,
+    Pressable,
 } from "react-native";
-import React, { ReactNode } from "react";
-import TextComponent from "./TextComponent";
-import { globalStyles } from "@/styles/globalStyles";
-import { Colors } from "@/constants/Colors";
-import { fontFamilies } from "@/constants/Fonts";
+import React from "react";
+import { Colors, GStyles } from "@/constants";
 
 interface Props {
-    icon?: ReactNode;
+    type?: "primary" | "link";
     text: string;
-    type?: "primary" | "text" | "link";
-    color?: string;
-    styles?: StyleProp<ViewStyle>;
-    textColor?: string;
-    textStyles?: StyleProp<TextStyle>;
-    textFont?: string;
     onPress?: () => void;
-    iconFlex?: "right" | "left";
-    disable: boolean;
+    textStyles?: StyleProp<TextStyle>;
+    styles?: StyleProp<ViewStyle>;
+    bgColor?: string;
+    bgColorPress?: string;
 }
 
 const ButtonComponent = (props: Props) => {
-    const {
-        icon,
-        text,
-        textColor,
-        textStyles,
-        textFont,
-        color,
-        styles,
-        onPress,
-        iconFlex,
-        type,
-        disable,
-    } = props;
+    const { type, text, onPress, textStyles, styles, bgColor, bgColorPress } =
+        props;
     return type === "primary" ? (
-        <View style={{ alignItems: "center" }}>
-            <TouchableOpacity
-                disabled={disable}
-                onPress={onPress}
-                style={[
-                    globalStyles.button,
-                    globalStyles.shadow,
-                    {
-                        backgroundColor: color
-                            ? color
-                            : disable
-                            ? Colors.gray4
-                            : Colors.primary,
-                        marginBottom: 17,
-                        width: "90%",
-                    },
-                    styles,
-                ]}
-            >
-                {icon && iconFlex === "left" && icon}
-                <TextComponent
-                    text={text}
-                    color={textColor ?? Colors.white}
-                    styles={[
-                        textStyles,
-                        {
-                            marginLeft: icon ? 12 : 0,
-                            fontSize: 16,
-                            textAlign: "center",
-                        },
-                    ]}
-                    flex={icon && iconFlex === "right" ? 1 : 0}
-                    font={textFont ?? fontFamilies.medium}
-                />
-                {icon && iconFlex === "right" && icon}
-            </TouchableOpacity>
-        </View>
+        <Pressable
+            onPress={onPress}
+            style={({ pressed }) => [
+                styles,
+                { backgroundColor: pressed ? bgColorPress : bgColor },
+            ]}
+        >
+            <Text style={[textStyles]}>{text}</Text>
+        </Pressable>
     ) : (
-        <TouchableOpacity onPress={onPress}>
-            <TextComponent
-                text={text}
-                color={type === "link" ? Colors.primary : Colors.text}
-                flex={0}
-            />
-        </TouchableOpacity>
+        <Pressable onPress={onPress}>
+            <Text style={[textStyles]}>{text}</Text>
+        </Pressable>
     );
 };
 
