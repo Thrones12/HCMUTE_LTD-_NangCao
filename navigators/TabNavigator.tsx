@@ -4,6 +4,7 @@ import { View, Pressable } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { HomeScreen, ProfileScreen } from "@/screens";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import LessonListScreen from "@/screens/mainTab/LessonListScreen";
 
 const Tab = createBottomTabNavigator();
 
@@ -32,6 +33,7 @@ const TabNavigator = () => {
             })}
         >
             <Tab.Screen name='Home' component={HomeScreen} />
+            <Tab.Screen name='Lesson' component={LessonListScreen} />
             <Tab.Screen name='Profile' component={ProfileScreen} />
         </Tab.Navigator>
     );
